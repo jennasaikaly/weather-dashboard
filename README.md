@@ -11,4 +11,5 @@ Challenge #6 is a Weather Dashboard that we are creating so that users are able 
 ## SCREENSHOT
 
 ## DEPLOYED URL
+https://jennasaikaly.github.io/weather-dashboard/
 
