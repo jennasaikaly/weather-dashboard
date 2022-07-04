@@ -163,6 +163,14 @@ p {
   padding: 2.5%;
 }
 
+#current-weather-list {
+  list-style: none;
+  list-style-type: none;
+  }
+
+.subtitle{
+  color: var(--primary);
+}
 /* FORM */
 .form-label,
 .form-input,

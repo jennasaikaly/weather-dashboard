@@ -1,76 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"> -->
     <link rel="stylesheet" href="./Assets/css/style.css" />
     <title>Challenge 6 - Weather Dashboard</title>
 </head>
+
 <body>
     <header>
         <h1>Weather Dashboard</h1>
     </header>
     <main class="flex-row justify-space-between">
         <div class="col-12 col-md-4">
-        <div class="card">
-            <h3 class="card-header text-uppercase">SEARCH FOR A CITY</h3>
-            <form id="city-form" class="card-body">
-                <label class="form-label" for="city-name">City Name</label>
-                <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input" placeholder="(city, province, country)"/>
-                <button type="submit" class="btn">Search City</button>
+            <div class="card">
+                <h3 class="card-header text-uppercase">SEARCH FOR A CITY</h3>
+                <form id="city-form" class="card-body">
+                    <label class="form-label" for="city-name">City Name</label>
+                    <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input"
+                        placeholder="(city, province, country)" />
+                    <button type="submit" class="btn">Search City</button>
                 </form>
-        </div>
-        <div class="card">
-            <div class="card-body" id="city-buttons">
-                <button class="btn" data-city="">City</button>
-                <button class="btn" data-city="">City</button>
-                <button class="btn" data-city="">City</button>
-                <button class="btn" data-city="">City</button>
-                <button class="btn" data-city="">City</button>
-                <button class="btn" data-city="">City</button>
-                <button class="btn" data-city="">City</button>
-                <button class="btn" data-city="">City</button>
+            </div>
+            <div class="card">
+                <div class="card-body" id="city-buttons">
+                    <button class="btn" data-city="">City</button>
+                    <button class="btn" data-city="">City</button>
+                    <button class="btn" data-city="">City</button>
+                    <button class="btn" data-city="">City</button>
+                    <button class="btn" data-city="">City</button>
+                    <button class="btn" data-city="">City</button>
+                    <button class="btn" data-city="">City</button>
+                    <button class="btn" data-city="">City</button>
+                </div>
             </div>
         </div>
-      </div>
-      <div class="col-12 col-md-8">
+        <div class="col-12 col-md-8">
             <div class="card">
-                
-                    <h3 class="subtitle">Showing weather for: <span id= "city-search-term"></span> 
-                        <span id= "current-date"></span></h3>
-                    <div id = "current-weather-container">
-                        <ul>
+                <div class="card-header">
+                    <div class="subtitle">
+                        <h3 class="subtitle">
+                            <span id="city-search-term"></span>
+                            <span id="current-date"></span>
+                            <span><img id="current-icon"></img></span>
+                        </h3>
+                    </div>
+                    <div id="current-weather-container">
+                        <ul id="current-weather-list">
                             <li id="current-temp"></li>
                             <li id="current-wind"></li>
                             <li id="current-humidity"></li>
                             <li id="current-uv"></li>
                         </ul>
                     </div>
-            
-
-            </div>
-            <div>
-                <h3 class="subtitle">5 day forecast</h3>
-                <div class="col-2 daily">
-                    <p>1</p>
                 </div>
-                <div class="col-2 daily">
-                    <p>2</p>
-                </div>
-                <div class="col-2 daily">
-                    <p>3</p>
-                </div>
-                <div class="col-2 daily">
-                    <p>4</p>
-                </div>
-                <div class="col-2 daily">
-                    <p>5</p>
+                <div>
+                    <h3 class="subtitle">5 day forecast</h3>
+                    <div id = "daily-weather-container">
+                                        </div>
                 </div>
             </div>
-      </div>      
     </main>
     <script src="./Assets/js/homepage.js"></script>
 </body>
+
 </html>
