@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="./Assets/css/style.css" />
     <title>Challenge 6 - Weather Dashboard</title>
 </head>
@@ -14,8 +15,8 @@
     <header>
         <h1>Weather Dashboard</h1>
     </header>
-    <main class="flex-row justify-space-between">
-        <div class="col-12 col-md-4">
+    <main class="flex-row">
+        <div class="col-12 col-sm-6 col-md-4">
             <div class="card">
                 <h3 class="card-header text-uppercase">SEARCH FOR A CITY</h3>
                 <form id="city-form" class="card-body">
@@ -38,33 +39,18 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <div class="subtitle">
-                        <h3 class="subtitle">
-                            <span id="city-search-term"></span>
-                            <span id="current-date"></span>
-                            <span><img id="current-icon"></img></span>
-                        </h3>
-                    </div>
-                    <div id="current-weather-container">
-                        <ul id="current-weather-list">
-                            <li id="current-temp"></li>
-                            <li id="current-wind"></li>
-                            <li id="current-humidity"></li>
-                            <li id="current-uv"></li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
+        <div class="flex-row col-12 col-sm-6 col-md-8 col-lg-8">
+            <div id=current-weather-container class="">
+            </div>
+            <div>
+                <div id="daily-weather-container" class="">
                     <h3 class="subtitle">5 day forecast</h3>
-                    <div id = "daily-weather-container">
-                                        </div>
                 </div>
             </div>
+        </div>
     </main>
     <script src="./Assets/js/homepage.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  </body>
 
 </html>
