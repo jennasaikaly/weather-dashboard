@@ -17,6 +17,7 @@ var currentHumidityEl = document.querySelector('#current-humidity');
 var currentUvEl = document.querySelector('#current-uvi');
 var currentUvColorEl = document.querySelector('#current-uvi-color')
 
+var cityButtonsEl = document.querySelector('#city-buttons');
 // var forecastDateEl = document.querySelector('#forecast-date');
 // var forecastIconEl = document.querySelector('#forecast-icon');
 // var forecastTempEl = document.querySelector('#forecast-temp');
@@ -30,15 +31,18 @@ var currentUvColorEl = document.querySelector('#current-uvi-color')
 var dailyWeatherContainerEl = document.querySelector("#daily-weather-container");
 
 var loadSearch = function () {
-    citynameArray = JSON.parse(localStorage.getItem('city'));   
-        console.log(citynameArray);
+    citynameArray = JSON.parse(localStorage.getItem('city'));
+    // console.log(citynameArray[0]);
     // console.log(citynameArray)
 
-    citynameArray.forEach(city =>{
-        var citybutton=document.createElement('button')
-        citybutton.textContent = city});
-        
-    }
+    for (let i = 0; i < citynameArray.length; i++) {
+       
+        var citybutton = document.createElement('button')
+        citybutton.textContent = citynameArray[i];
+        cityButtonsEl.appendChild(citybutton);
+    };
+}
+
 
 var formSubmitHandler = function (event) {
     event.preventDefault();
@@ -63,7 +67,7 @@ var getCity = function (city) {
             response.json().then(function (data) {
                 // console.log(data);
 
-// console.log(cityname);
+                // console.log(cityname);
                 // const lat = data[0].lat;
                 // const lon = data[0].lon;
                 getWeather(data);
@@ -78,15 +82,15 @@ var saveSearch = function (data) {
     citynameArray = JSON.parse(localStorage.getItem('city'));
     // console.log(cityname);
     // console.log(citynameArray);
-     
-        citynameArray.push(cityname);
-        // console.log(citynameArray);
-        localStorage.setItem('city', JSON.stringify(citynameArray));
-        return;
+
+    citynameArray.push(cityname);
+    // console.log(citynameArray);
+    localStorage.setItem('city', JSON.stringify(citynameArray));
+    return;
 }
 
 var getWeather = function (data) {
-// console.log(data);
+    // console.log(data);
     // const lat = 
     const { lat, lon, name } = data[0];
     // console.log(lat);
