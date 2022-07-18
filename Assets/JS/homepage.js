@@ -1,6 +1,6 @@
 //require moment.js
 // const moment = require('moment'); //require
-citynameArray = [];
+// cityArray = [];
 //declare variables
 var cityFormEl = document.querySelector("#city-form");
 var nameInputEl = document.querySelector("#city-name");
@@ -31,16 +31,28 @@ var cityButtonsEl = document.querySelector('#city-buttons');
 var dailyWeatherContainerEl = document.querySelector("#daily-weather-container");
 
 var loadSearch = function () {
-    citynameArray = JSON.parse(localStorage.getItem('city'));
-    // console.log(citynameArray[0]);
-    // console.log(citynameArray)
-
-    for (let i = 0; i < citynameArray.length; i++) {
-       
+    // debugger;
+    cityArray = JSON.parse(localStorage.getItem('city'));
+    // console.log(cityArray);
+    
+    // console.log(cityArray[i].name);
+    // console.log(cityArray.length)
+if (cityArray) {
+        for (let i = 0; i < cityArray.length; i++) {
+            const { name, lat, lon } = cityArray[i];
         var citybutton = document.createElement('button')
-        citybutton.textContent = citynameArray[i];
+        citybutton.textContent = name;
+        citybutton.type = ('submit');
+        citybutton.className = ('city-button');
+        citybutton.dataset.name = name;
+        citybutton.dataset.lat = lat;
+        citybutton.dataset.lon = lon;
         cityButtonsEl.appendChild(citybutton);
     };
+} else {
+    cityButtonsEl.display = ('none');
+    return;
+}
 }
 
 
@@ -77,16 +89,30 @@ var getCity = function (city) {
 };
 
 var saveSearch = function (data) {
-    // console.log(data[0].name);
-    const cityname = data[0].name;
-    citynameArray = JSON.parse(localStorage.getItem('city'));
-    // console.log(cityname);
-    // console.log(citynameArray);
-
-    citynameArray.push(cityname);
-    // console.log(citynameArray);
-    localStorage.setItem('city', JSON.stringify(citynameArray));
-    return;
+    // console.log(data);
+    const { lat, lon, name } = data[0];
+    var cityDetails = {"name": name, "lat": lat, "lon": lon};
+    cityArray = JSON.parse(localStorage.getItem('city'));
+    // console.log(lat);
+    // console.log(lon);  
+    // console.log(name);
+    if (!cityArray){
+        cityArray = [];
+    }
+        console.log(cityDetails);
+        // const cityname = data[0].name;
+        // cityArray = JSON.parse(localStorage.getItem('city'));
+        // // console.log(cityname);
+        console.log(cityArray);
+        cityArray.push(cityDetails);
+    
+        
+        // console.log(citynameArray);
+        localStorage.setItem('city', JSON.stringify(cityArray));
+        
+       
+    
+    
 }
 
 var getWeather = function (data) {
@@ -235,3 +261,5 @@ var displayForecast = function (data) {
 };
 loadSearch();
 cityFormEl = addEventListener("submit", formSubmitHandler);
+cityFormEl = addEventListener("submit", loadSearch);
+cityButtonsEl = addEventListener("submit", getCity);
