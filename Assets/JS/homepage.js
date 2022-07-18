@@ -21,9 +21,9 @@ var cityButtonsEl = document.querySelector('#city-button-container');
 var dailyWeatherContainerEl = document.querySelector("#daily-weather-container");
 
 var loadSearchHistory = function () {
-    
+
     cityArray = JSON.parse(localStorage.getItem('city'));
-    
+
     if (cityArray) {
         for (let i = 0; i < cityArray.length; i++) {
             const { name, lat, lon } = cityArray[i];
@@ -43,14 +43,13 @@ var loadSearchHistory = function () {
     }
 }
 
-
 var formSubmitHandler = function (event) {
     event.preventDefault();
     weatherContainer.style = "contents"
     // get value from input element
     var cityinput = nameInputEl.value.trim();
     var cityname = cityinput.toUpperCase();
-   
+
     console.log(cityname);
     if (cityname) {
         getCity(cityname);
@@ -60,39 +59,7 @@ var formSubmitHandler = function (event) {
     }
 };
 
-
-
-    
-//       var plantExist = searchHistory.includes(plant);
-      
-//       if (!plantExist) {
-//             searchHistory.push(plant);
-//             localStorage.setItem("VeggieSearch", JSON.stringify(searchHistory));
-//             var searchHistoryEl = document.createElement('button')
-//             searchHistoryEl.className = "btn";
-//             searchHistoryEl.setAttribute("veggieData", plant)
-//             veggieButton.setAttribute("style", "display: block")
-//             searchHistoryEl.innerHTML = plant;
-//             searchHistoryEl.style.borderRadius = "10px";
-//             veggieButton.appendChild(searchHistoryEl);
-            
-//         getPlantInfo(plant);
-//         plantInput.value = "";
-        
-//       } else {
-//         var invalidInput = document.createElement("p")
-//         invalidInput.innerHTML = "<b>Please enter a fruit or vegetable.</b>";
-//         setTimeout(function(){
-//           invalidInput.innerHTML="";
-//         }, 3000);
-//         invalidInputEl.appendChild(invalidInput);
-    
-//       }
-    
-    // };
-
 var getCity = function (city) {
-    // debugger;
     fetch
         ("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=ffaf5b955f9d8df5264787907b066904")
         .then(function (response) {
@@ -105,96 +72,39 @@ var getCity = function (city) {
 };
 
 var saveSearch = function (data) {
-    // debugger;
     const { lat, lon, name } = data[0];
     var cityDetails = { "name": name, "lat": lat, "lon": lon };
-    // if (!cityArray){
-    //     cityArray = [];
-    // }
-
+    
     cityArray = JSON.parse(localStorage.getItem('city'));
-    
-    // for (i = 0; i < cityArray.length; i++) {
-    //         if (cityArray[i].name !== name){
-    //             return false;
-                
-                // cityArray.push(cityDetails)
-                // localStorage.setItem('city', JSON.stringify(cityArray))
-    // console.log(cityArray[i].name)
-    // console.log(name)
-    // }else {
-    //     return true;
-    // }
-    
-// }
-    // console.log (cityArray.findIndex(city => city.name === name))
 
-    // debugger;
-    if(!cityArray){
-            cityArray = [];
-            cityArray.push(cityDetails);
-            localStorage.setItem('city', JSON.stringify(cityArray));
-            var citybutton = document.createElement('button')
-            citybutton.textContent = name;
-            citybutton.type = ('submit');
-            citybutton.style = ('background-color: #9caea9');
-            citybutton.className = ('city-button');
-            citybutton.dataset.name = name
-            citybutton.dataset.lat = lat;
-            citybutton.dataset.lon = lon;
-            cityButtonsEl.appendChild(citybutton);
-    
-    } else if ( cityArray && cityArray.findIndex(city => city.name === name)== -1){
+    if (!cityArray) {
+        cityArray = [];
         cityArray.push(cityDetails);
         localStorage.setItem('city', JSON.stringify(cityArray));
         var citybutton = document.createElement('button')
-            citybutton.textContent = name;
-            citybutton.type = ('submit');
-            citybutton.style = ('background-color: #9caea9');
-            citybutton.className = ('city-button');
-            citybutton.dataset.name = name
-            citybutton.dataset.lat = lat;
-            citybutton.dataset.lon = lon;
-            cityButtonsEl.appendChild(citybutton);
-     } else {
+        citybutton.textContent = name;
+        citybutton.type = ('submit');
+        citybutton.style = ('background-color: #9caea9');
+        citybutton.className = ('city-button');
+        citybutton.dataset.name = name
+        citybutton.dataset.lat = lat;
+        citybutton.dataset.lon = lon;
+        cityButtonsEl.appendChild(citybutton);
+    } else if (cityArray && cityArray.findIndex(city => city.name === name) == -1) {
+        cityArray.push(cityDetails);
+        localStorage.setItem('city', JSON.stringify(cityArray));
+        var citybutton = document.createElement('button')
+        citybutton.textContent = name;
+        citybutton.type = ('submit');
+        citybutton.style = ('background-color: #9caea9');
+        citybutton.className = ('city-button');
+        citybutton.dataset.name = name
+        citybutton.dataset.lat = lat;
+        citybutton.dataset.lon = lon;
+        cityButtonsEl.appendChild(citybutton);
+    } else {
         return
     }
-
-
-
-
-
-    // console.log(cityArray);
-    
-    
-    // cityArray.push(cityDetails)
-        // console.log(citynameArray);
-        // localStorage.setItem('city', JSON.stringify(cityArray))
-    // console.log(cityArray);
-
-    // if (cityArray.some(city => city.name === name)){
-    //     console.log('this city has already been saved');
-    // } else {
-    //     console.log('save this city');
-    // }
-   
-    // console.log(cityExists);
-    // for (i = 0; i < cityArray.length; i++) {
-    //     if (cityArray[i] === cityDetails){
-    //         return
-    // } 
-    // // }
-    
-
-        // console.log(lat);
-    // console.log(lon);  
-    // console.log(name);
-    
-    // console.log(cityDetails);
-    // const cityname = data[0].name;
-    // cityArray = JSON.parse(localStorage.getItem('city'));
-    // // console.log(cityname);
-    // console.log(cityArray);
 }
 
 var getWeather = function (data) {
@@ -216,7 +126,7 @@ var displayCurrentWeather = function (data, name) {
 
     var date = new Date(dt * 1000)
     var formattedDate = date.toDateString();
-    
+
     currentCityEl.textContent = name;
     currentDateEl.textContent = ('(' + formattedDate + ')');
     currentIconEl.src = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
@@ -231,7 +141,7 @@ var displayCurrentWeather = function (data, name) {
 var displayForecast = function (data) {
     // loop over forecasts
     for (var i = 0; i < 5; i++) {
-        
+
         var dailyDate = data.daily[i].dt;
         var dailyIcon = data.daily[i].weather[0].icon
         var dailyTemp = data.daily[i].temp.day;
@@ -286,8 +196,7 @@ var historyHandler = function (event) {
     if (plant) {
         getPlantInfo(plant);
     }
-  }
+}
 loadSearchHistory();
 cityFormEl = addEventListener("submit", formSubmitHandler);
-// cityFormEl = addEventListener("submit", loadSearchHistory);
 // cityButtonsEl = addEventListener("submit", getCity);
