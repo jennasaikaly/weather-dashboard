@@ -1,4 +1,4 @@
-/* :root {
+:root {
     --primary: #ccdad1;
     --secondary: #9caea9;
     --tertiary: #788585;
@@ -6,14 +6,18 @@
     --dark: #38302e;
     --border-radius: .3rem;
   }
-  
-  * {
+
+* {
     box-sizing: border-box;
   }
-
-body {
+/* main {
+    display:flex;
+    width: 100%;
+} */
+  body {
     margin: 0;
 }
+
 header {
     background-color: navy;
     color: white;
@@ -21,41 +25,79 @@ header {
     padding: 5px;
     text-align: center;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: 0;
 }
-.title {
-    padding-top:5px;
+h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin: .5rem;
+    text-align: center;
+    }
+
+button  {
+    width: 100%;
+    margin-bottom: .5rem;
+    height: 32px;
 }
-.search-container {
+input{
+    width: 100%;
+    margin-bottom: .5rem;
+    height: 32px;
+    text-align: center;
+}
+ul {
+    list-style-type: none;
+}
+
+.container {
+    display:inline-flex;
+    flex-wrap: nowrap;
+    width:100%;
+}
+
+.flex-direction{
+    flex-direction: row;
+}
+.search-container{
+    width:30%;
+  height:132px;
+  margin-left: .5rem;
+}
+
+
+.search-form {
+    flex-direction: column;
     display: flex;
-    flex-direction: column  ;
+    width: 100%;
+    align-items: stretch;
+    border-bottom: black solid 1px;
 }
-
-.btn {
-    background-color: grey;
-    color: black;
-    font-size: 20px;
-    width: 200px;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 0;
-}
-
-/* .card {
+.city-button-container{
     display: flex;
-    border-radius: 0;
-    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    /* align-items: stretch; */
+    margin-top: .5rem;
+}
+.weather-container{
+    width:70%;
+  height:132px;
 }
 
-.card-body {
-    align-items:center;
-} */
-/* 
-#city-buttons{
-    padding-top: 5px;
-} */
-
-/* #search-form {
+.daily-weather-container {
     display: flex;
-    padding-bottom: 5px;
-    align-items:center;
-} */ */
+}
+.daily-card {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 20%;
+    border: black solid 2px;
+    margin: .25rem;
+    background-color: rgb(40, 40, 165);
+    color: white;
+}
+
+
+@media screen and (max-width: 500px) {
+    .flex-direction{
+    flex-direction:column;
+    }}
