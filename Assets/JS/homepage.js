@@ -29,7 +29,7 @@ var loadSearchHistory = function () {
             const { name, lat, lon } = cityArray[i];
             var citybutton = document.createElement('button')
             citybutton.textContent = name;
-            citybutton.type = ('submit');
+            citybutton.type = ('button');
             citybutton.style = ('background-color: #9caea9');
             citybutton.className = ('city-button');
             citybutton.dataset.name = name
@@ -50,7 +50,7 @@ var formSubmitHandler = function (event) {
     var cityinput = nameInputEl.value.trim();
     var cityname = cityinput.toUpperCase();
 
-    console.log(cityname);
+    // console.log(cityname);
     if (cityname) {
         getCity(cityname);
         //   nameInputEl.value = "";
@@ -83,7 +83,7 @@ var saveSearch = function (data) {
         localStorage.setItem('city', JSON.stringify(cityArray));
         var citybutton = document.createElement('button')
         citybutton.textContent = name;
-        citybutton.type = ('submit');
+        citybutton.type = ('button');
         citybutton.style = ('background-color: #9caea9');
         citybutton.className = ('city-button');
         citybutton.dataset.name = name
@@ -95,7 +95,7 @@ var saveSearch = function (data) {
         localStorage.setItem('city', JSON.stringify(cityArray));
         var citybutton = document.createElement('button')
         citybutton.textContent = name;
-        citybutton.type = ('submit');
+        citybutton.type = ('button');
         citybutton.style = ('background-color: #9caea9');
         citybutton.className = ('city-button');
         citybutton.dataset.name = name
@@ -108,10 +108,13 @@ var saveSearch = function (data) {
 }
 
 var getWeather = function (data) {
+  
     const { lat, lon, name } = data[0];
+    // console.log(lat);
     fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=metric&appid=ffaf5b955f9d8df5264787907b066904")
         .then(function (response) {
             response.json().then(function (data) {
+                // console.log(data)
                 // loadSearch()
                 displayCurrentWeather(data, name);
                 displayForecast(data, name);
@@ -192,11 +195,17 @@ var displayForecast = function (data) {
 
 // Handler for Search History Results
 var historyHandler = function (event) {
-    var plant = event.target.getAttribute("veggieData");
-    if (plant) {
-        getPlantInfo(plant);
-    }
+    var name = event.target.getAttribute("data-name");
+    var lat = event.target.getAttribute("data-lat");
+    var lon = event.target.getAttribute("data-lon");
+
+    var cityinfo = {name, lat, lon};
+    
+    var data = [];
+    data.push(cityinfo)
+    getWeather(data) 
 }
+
 loadSearchHistory();
 cityFormEl = addEventListener("submit", formSubmitHandler);
-// cityButtonsEl = addEventListener("submit", getCity);
+cityButtonsEl = addEventListener("click", historyHandler);
