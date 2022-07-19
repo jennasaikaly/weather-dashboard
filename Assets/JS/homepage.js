@@ -108,13 +108,13 @@ var saveSearch = function (data) {
 }
 
 var getWeather = function (data) {
-  
+    console.log(data);
     const { lat, lon, name } = data[0];
-    // console.log(lat);
+   
     fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=metric&appid=ffaf5b955f9d8df5264787907b066904")
         .then(function (response) {
             response.json().then(function (data) {
-                // console.log(data)
+                console.log(data)
                 // loadSearch()
                 displayCurrentWeather(data, name);
                 displayForecast(data, name);
@@ -123,7 +123,8 @@ var getWeather = function (data) {
 };
 
 var displayCurrentWeather = function (data, name) {
-    dailyWeatherContainerEl.innerHTML = "";
+    // console.log(data)
+    // dailyWeatherContainerEl.innerHTML = "";
     const icon = data.current.weather[0].icon;
     const { dt, temp, wind_speed, humidity, uvi } = data.current;
 
@@ -137,8 +138,22 @@ var displayCurrentWeather = function (data, name) {
     currentWindEl.textContent = "Wind: " + wind_speed + " meters/sec";
     currentHumidityEl.textContent = "Humidity: " + humidity + "%";
     currentUvEl.textContent = "UV Index: ";
+    currentUvEl.style.display= ("inline")
     currentUvColorEl.textContent = uvi;
-    currentUvColorEl.style.backgroundColor = "red";
+    currentUvColorEl.style.display = ("inline");
+    
+    debugger;
+    if (uvi <=2){
+        currentUvColorEl.style.backgroundColor = ('#98D600');
+    } else if (uvi >= 2 && uvi <= 5){
+        currentUvColorEl.style.backgroundColor = ('#FECD2F');
+    }else if (uvi >= 5 && uvi <= 7){
+        currentUvColorEl.style.backgroundColor = ('#E98600');
+    }else if (uvi >= 7 && uvi <= 10){
+        currentUvColorEl.style.backgroundColor = ('#DE3E2A');
+    }else {
+        currentUvColorEl.style.backgroundColor = ('#9161C9');
+    }
 };
 
 var displayForecast = function (data) {
@@ -195,17 +210,19 @@ var displayForecast = function (data) {
 
 // Handler for Search History Results
 var historyHandler = function (event) {
+    // debugger;
+    event.preventDefault();
     var name = event.target.getAttribute("data-name");
     var lat = event.target.getAttribute("data-lat");
     var lon = event.target.getAttribute("data-lon");
 
-    var cityinfo = {name, lat, lon};
+    var data = {name, lat, lon};
     
-    var data = [];
-    data.push(cityinfo)
+    // var buttonData = [];
+    // buttonData.push(cityinfo)
     getWeather(data) 
-}
+ }
 
 loadSearchHistory();
 cityFormEl = addEventListener("submit", formSubmitHandler);
-cityButtonsEl = addEventListener("click", historyHandler);
+// cityButtonsEl = addEventListener("click", formSubmitHandler);
