@@ -24,7 +24,10 @@ var loadSearchHistory = function () {
 
     cityArray = JSON.parse(localStorage.getItem('city'));
 
-    if (cityArray) {
+    if (cityArray.length > 10) {
+        cityArray.splice(cityArray.length -10, cityArray.length - 10);
+        console.log(cityArray)
+
         for (let i = 0; i < cityArray.length; i++) {
             const { name, lat, lon } = cityArray[i];
             var citybutton = document.createElement('button')
@@ -36,6 +39,17 @@ var loadSearchHistory = function () {
             citybutton.dataset.lat = lat;
             citybutton.dataset.lon = lon;
             cityButtonsEl.appendChild(citybutton);
+
+            citybutton.addEventListener("click", function (event) {
+                var cityName = event.target.dataset.name;
+                getCity(cityName);
+                dailyWeatherContainerEl.innerHTML = "";
+                weatherContainer.style = "contents";
+                cityButtonsEl.innerHTML = "";
+                loadSearchHistory();
+                
+                }
+            );
         };
     } else {
         cityButtonsEl.display = ('none');
@@ -52,6 +66,9 @@ var formSubmitHandler = function (event) {
 
     // console.log(cityname);
     if (cityname) {
+        dailyWeatherContainerEl.innerHTML = "";
+        weatherContainer.style = "contents";
+        // cityButtonsEl.innerHTML = "";
         getCity(cityname);
         //   nameInputEl.value = "";
     } else {
@@ -142,7 +159,7 @@ var displayCurrentWeather = function (data, name) {
     currentUvColorEl.textContent = uvi;
     currentUvColorEl.style.display = ("inline");
     
-    debugger;
+    
     if (uvi <=2){
         currentUvColorEl.style.backgroundColor = ('#98D600');
     } else if (uvi >= 2 && uvi <= 5){
@@ -158,7 +175,7 @@ var displayCurrentWeather = function (data, name) {
 
 var displayForecast = function (data) {
     // loop over forecasts
-    for (var i = 0; i < 5; i++) {
+    for (var i = 1; i <6; i++) {
 
         var dailyDate = data.daily[i].dt;
         var dailyIcon = data.daily[i].weather[0].icon
@@ -209,20 +226,21 @@ var displayForecast = function (data) {
 };
 
 // Handler for Search History Results
-var historyHandler = function (event) {
-    // debugger;
-    event.preventDefault();
-    var name = event.target.getAttribute("data-name");
-    var lat = event.target.getAttribute("data-lat");
-    var lon = event.target.getAttribute("data-lon");
+// var historyHandler = function (event) {
+//     // debugger;
+//     event.preventDefault();
+//     var name = event.target.getAttribute("data-name");
+//     var lat = event.target.getAttribute("data-lat");
+//     var lon = event.target.getAttribute("data-lon");
 
-    var data = {name, lat, lon};
+//     var data = {name, lat, lon};
     
-    // var buttonData = [];
-    // buttonData.push(cityinfo)
-    getWeather(data) 
- }
+//     // var buttonData = [];
+//     // buttonData.push(cityinfo)
+//     getWeather(data) 
+//  }
 
 loadSearchHistory();
 cityFormEl = addEventListener("submit", formSubmitHandler);
-// cityButtonsEl = addEventListener("click", formSubmitHandler);
+// cityButtonsEl = addEventListener("click", historyHandler);
+// cityButtonsEl = addEventListener("click", historyHandler);
