@@ -1,5 +1,5 @@
 //declare variables
-
+console.log('connected');
 cityArray = [];
 
 var cityFormEl = document.querySelector("#city-form");
